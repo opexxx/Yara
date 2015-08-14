@@ -174,5 +174,6 @@ function Invoke-Yara{
 
             Remove-Item -Path "$env:TEMP\$YaraName"
             Remove-Item -Path "$env:TEMP\$RulesFileName"
-    }    
+    }
+    Invoke-Command -ComputerName $ComputerName -ScriptBlock $RemoteScriptBlock -ArgumentList @($EncodedCompressedYara, $ProcessorBitness, $RulesFileLength, $CommandlineOptions, $EncodedCompressedRulesFile, $ScanTarget)
 }
