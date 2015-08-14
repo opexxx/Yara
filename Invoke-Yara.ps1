@@ -32,7 +32,8 @@ function Invoke-Yara{
         [Alias("t")]
         [Parameter()]
 		[String]$Tag,
-
+        
+        [Alias("i")]
         [Parameter()]
 		[String]$Identifier,
         
@@ -110,12 +111,17 @@ function Invoke-Yara{
     $CommandlineOptions = New-Object String[](0)
     switch ($PSBoundParameters.Keys) 
     {
+                    'Tag' { $CommandlineOptions += "--tag=$Tag" }
+             'Identifier' { $CommandlineOptions += "--identifier=$Identifier" } 
                  'Negate' { $CommandlineOptions += '-n' } 
         'PrintModuleData' { $CommandlineOptions += '-D' }
               'PrintTags' { $CommandlineOptions += '-g' }
               'PrintMeta' { $CommandlineOptions += '-n' }
            'PrintStrings' { $CommandlineOptions += '-s' }
          'PrintNamespace' { $CommandlineOptions += '-e' }
+                'Threads' { $CommandlineOptions += "--threads=$($Threads.ToString())" }
+               'MaxRules' { $CommandlineOptions += "--max-rules=$($MaxRules.ToString())" }
+                'Timeout' { $CommandlineOptions += "--timeout=$($Timeout.ToString())" }
                 'Recurse' { $CommandlineOptions += '-r' }
                'FastScan' { $CommandlineOptions += '-f' }
              'NoWarnings' { $CommandlineOptions += '-w' }
